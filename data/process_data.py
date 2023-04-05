@@ -45,14 +45,16 @@ def clean_data(df):
     
     # concatenate the original dataframe with the new `categories` dataframe
     df = pd.concat([df, categories], axis=1)
-
+    
+    # Drop rows where column related is 2
+    df = df[df['related'] != 2]
+    
     # drop duplicates
     df = df.drop_duplicates(keep='first')
 
     return df
 
 
-    
 def save_data(df, database_filename):
     """This function saves the data into a sqlite database"""  
     
