@@ -29,6 +29,8 @@ lemmatizer = WordNetLemmatizer()
 
 
 def load_data(database_filepath):
+    """This function loads the sqlite database"""    
+    
     # load data from database
     conn = sqlite3.connect(database_filepath)
     cur = conn.cursor()
@@ -44,6 +46,7 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+    """This function tokenize the text""" 
     
     # normalize case and remove punctuation
     text = re.sub(r"[^a-zA-Z0-9]", " ", text.lower())    
@@ -56,6 +59,7 @@ def tokenize(text):
 
 
 def build_model():
+    """This function builds the pipeline of the ML model with TFIDF technique and multiouput random forest classifer along with grid search""" 
     
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
@@ -73,6 +77,7 @@ def build_model():
     return cv
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    """This function evaluate the model on the test set with f1, recall and precision metrics""" 
     
     # predict on test data
     y_pred_gridsearch = model.predict(X_test)
@@ -96,6 +101,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
     return df_metrics_gridsearch
     
 def save_model(model, model_filepath):
+    """This function saves the model into a pkl file""" 
     
     pickle.dump(model, open(model_filepath, 'wb'))
 

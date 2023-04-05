@@ -5,6 +5,7 @@ import sqlite3
 
 
 def load_data(messages_filepath, categories_filepath):
+    """Takes in the messages file path (messages_filepath ) and the categories file path (categories_filepath) and combines them to cerate a new dataset"""
     
     # load messages dataset
     messages = pd.read_csv(messages_filepath)
@@ -18,6 +19,7 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
+    """This function perform some text cleaning and normalization """
     
     # Split the values in the categories column on the ;  character
     categories = df['categories'].str.split(';',expand=True)
@@ -52,6 +54,7 @@ def clean_data(df):
 
     
 def save_data(df, database_filename):
+    """This function saves the data into a sqlite database"""  
     
     # Save the clean dataset into an sqlite database
     engine = sqlalchemy.create_engine('sqlite:///'+database_filename)
