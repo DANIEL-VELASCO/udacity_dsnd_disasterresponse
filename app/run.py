@@ -10,7 +10,7 @@ from plots import return_figures
 from plots import load_data
 import bz2
 import pickle
-from plots import tokenize
+from app.models.train_classifier import tokenize
 
 app = Flask(__name__)
 
