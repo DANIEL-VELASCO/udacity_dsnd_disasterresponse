@@ -10,10 +10,10 @@ from plots import return_figures
 from plots import load_data
 import bz2
 import pickle
-import sys
-sys.path.insert(1,'/app/models')
+#import sys
+#sys.path.insert(1,'/app/models')
 #sys.path.insert(1,'/home/workspace/web_app/models')
-from train_classifier import tokenize
+#from train_classifier import tokenize
 from joblib import dump, load
 
 app = Flask(__name__)
@@ -36,9 +36,9 @@ df = load_data()
 #model = joblib.load("../models/classifier.pkl")
 # load model
 ifile = bz2.BZ2File("/app/models/classifier.pkl",'rb')
-#ifile = bz2.BZ2File("/app/models/classifier.pkl",'rb')
-#model = pickle.load(ifile)
-model = load(ifile)
+#ifile = bz2.BZ2File('/home/workspace/web_app/models/classifier.pkl','rb')
+model = pickle.load(ifile)
+#model = load(ifile)
 ifile.close()
 
 # index webpage displays cool visuals and receives user input text for model

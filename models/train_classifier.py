@@ -58,11 +58,12 @@ def tokenize(text):
     return tokens
 
 
+
 def build_model():
     """This function builds the pipeline of the ML model with TFIDF technique and multiouput random forest classifer along with grid search""" 
     
     pipeline = Pipeline([
-        ('vect', CountVectorizer(tokenizer=tokenize)),
+        ('vect', CountVectorizer(lowercase=True,stop_words='english')),
         ('tfidf', TfidfTransformer()),
         ('multioutput_clf', MultiOutputClassifier(RandomForestClassifier(n_estimators=10)))
     ])
