@@ -5,7 +5,7 @@ import sqlite3
 import re
 import nltk
 import pickle
-
+import bz2
 from nltk.corpus import stopwords
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
@@ -64,7 +64,7 @@ def build_model():
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
-        ('multioutput_clf', MultiOutputClassifier(RandomForestClassifier()))
+        ('multioutput_clf', MultiOutputClassifier(RandomForestClassifier(n_estimators=10)))
     ])
 
     parameters = {
@@ -74,7 +74,8 @@ def build_model():
     # Grid search of hyperparameters
     cv = GridSearchCV(pipeline, param_grid=parameters)
     
-    return cv
+    return cv #pipeline #cv
+    
 
 def evaluate_model(model, X_test, Y_test, category_names):
     """This function evaluate the model on the test set with f1, recall and precision metrics""" 
@@ -103,7 +104,11 @@ def evaluate_model(model, X_test, Y_test, category_names):
 def save_model(model, model_filepath):
     """This function saves the model into a pkl file""" 
     
-    pickle.dump(model, open(model_filepath, 'wb'))
+    #pickle.dump(model, open(model_filepath, 'wb'))
+
+    ofile = bz2.BZ2File(model_filepath,'wb')
+    pickle.dump(model,ofile)
+    ofile.close()
 
 
 def main():

@@ -5,10 +5,11 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from flask import render_template, request, jsonify
 import plotly.graph_objs as gobjects
-from sklearn.externals import joblib
+import joblib
 from plots import return_figures
 from plots import load_data
-
+import bz2
+import pickle
 
 app = Flask(__name__)
 
@@ -27,8 +28,11 @@ def tokenize(text):
 df = load_data()
 
 # load model
-model = joblib.load("../models/classifier.pkl")
-
+#model = joblib.load("../models/classifier.pkl")
+# load model
+ifile = bz2.BZ2File("../models/classifier.pkl",'rb')
+model = pickle.load(ifile)
+ifile.close()
 
 # index webpage displays cool visuals and receives user input text for model
 @app.route('/')
@@ -64,7 +68,7 @@ def go():
 
 
 def main():
-
+    app.run(host='0.0.0.0', port=3000, debug=True)
 
 if __name__ == '__main__':
     main()
