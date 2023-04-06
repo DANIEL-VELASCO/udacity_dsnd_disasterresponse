@@ -12,7 +12,9 @@ import bz2
 import pickle
 import sys
 sys.path.insert(1,'/app/models')
+#sys.path.insert(1,'/home/workspace/web_app/models')
 from train_classifier import tokenize
+from joblib import dump, load
 
 app = Flask(__name__)
 
@@ -34,7 +36,9 @@ df = load_data()
 #model = joblib.load("../models/classifier.pkl")
 # load model
 ifile = bz2.BZ2File("/app/models/classifier.pkl",'rb')
-model = pickle.load(ifile)
+#ifile = bz2.BZ2File("/app/models/classifier.pkl",'rb')
+#model = pickle.load(ifile)
+model = load(ifile)
 ifile.close()
 
 # index webpage displays cool visuals and receives user input text for model
@@ -70,8 +74,8 @@ def go():
     )
 
 
-def main():
-    app.run(host='0.0.0.0', port=3000, debug=True)
+#def main():
+#    app.run(host='0.0.0.0', port=3000, debug=True)
 
 if __name__ == '__main__':
     main()
