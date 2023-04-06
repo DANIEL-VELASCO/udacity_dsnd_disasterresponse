@@ -30,7 +30,7 @@ df = load_data()
 # load model
 #model = joblib.load("../models/classifier.pkl")
 # load model
-ifile = bz2.BZ2File("../models/classifier.pkl",'rb')
+ifile = bz2.BZ2File("/app/models/classifier.pkl",'rb')
 model = pickle.load(ifile)
 ifile.close()
 

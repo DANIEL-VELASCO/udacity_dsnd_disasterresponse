@@ -20,7 +20,7 @@ lemmatizer = WordNetLemmatizer()
 
 def load_data():
     
-    conn = sqlite3.connect('../data/DisasterResponse.db')
+    conn = sqlite3.connect('/app/data/DisasterResponse.db')
     cur = conn.cursor()
     df = pd.read_sql("SELECT * FROM real_life_disasters", con=conn)
     
